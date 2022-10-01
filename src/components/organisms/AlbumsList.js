@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Album } from "../molecules/Album";
-import { Photo } from "../molecules/Photo";
 
 export const AlbumList = () => {
   const [users, setUsers] = useState([]);
@@ -12,14 +11,9 @@ export const AlbumList = () => {
     return username;
   };
 
-  const getAlbumById = (albumId) => {
-    let album = albums.find((item) => item.id === albumId);
-    return album;
-  };
-
-  const getPhotoById = (photoId) => {
-    const photo = photos.find((item) => item.id === photoId);
-    return photo;
+  const getPhoto = (id) => {
+    const filterPhoto = photos.filter((item) => item.albumId === id)
+    return filterPhoto;
   };
 
   async function getAllData() {
@@ -44,18 +38,15 @@ export const AlbumList = () => {
     getAllData();
   }, []);
 
-  return (
+return (
     <div>
-      {albums.slice(0, 5).map((item) => (
+      {albums.slice(8, 13).map((item) => (
         <Album
           key={item.id}
           album={item}
           user={getUserById(item.userId)}
-          photo={getPhotoById(item.id)}
+          photo={getPhoto(item.id)}
         />
-      ))}
-      {photos.slice(0, 5).map((item) => (
-        <Photo key={item.id} photo={item} album={getAlbumById(item.id)} />
       ))}
     </div>
   );
